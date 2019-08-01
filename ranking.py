@@ -2,16 +2,12 @@ import os
 import json
 import random
 
-MEME_FOLDER = r"/Users/benjaminbaker/Desktop/meme dataset"
-RANK_JSON = r"/Users/benjaminbaker/Desktop/memeranking.json"
-
-RANK_COUNT_KEY = "rank_count"
-DANK_COUNT_KEY = "dank_count"
+import consts
 
 
 def _read_rank_json() -> dict:
     try:
-        with open(RANK_JSON, "r") as f:
+        with open(consts.RANK_JSON, "r") as f:
             ranked_files = json.load(f)
         return ranked_files
     except json.JSONDecodeError:
@@ -19,12 +15,12 @@ def _read_rank_json() -> dict:
 
 
 def _write_rank_json(rank_json: dict):
-    with open(RANK_JSON, "w") as f:
+    with open(consts.RANK_JSON, "w") as f:
         json.dump(rank_json, f)
 
 
 def get_file_name():
-    files = os.listdir(MEME_FOLDER)
+    files = os.listdir(consts.MEME_FOLDER)
     file_id = random.choice(files)
     return file_id
 
