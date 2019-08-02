@@ -19,7 +19,7 @@ def _write_rank_json(rank_json: dict):
         json.dump(rank_json, f)
 
 
-def get_file_name():
+def get_file_id():
     files = os.listdir(consts.MEME_FOLDER)
     file_id = random.choice(files)
     return file_id
@@ -28,10 +28,12 @@ def get_file_name():
 def update_file_id_counter(file_id, key):
     rank_json = _read_rank_json()
 
-    try:
-        rank_json[file_id][key] += 1
-    except KeyError:
+    if file_id not in rank_json:
         rank_json[file_id] = {}
+
+    if key not in rank_json[file_id]:
         rank_json[file_id][key] = 1
+    else:
+        rank_json[file_id][key] += 1
 
     _write_rank_json(rank_json)
